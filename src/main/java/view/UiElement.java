@@ -11,8 +11,10 @@ import java.util.List;
 
 public class UiElement {
 
-    public static String decorator = "---------------------------------------------------------------------------------------------------------------------------------------";
     public static char columnSeparator = '|';
+    public static char decoratorChar = '-';
+    public static String decorator = repeatChar(decoratorChar, 150);
+
     public static void formatHeader(String title) {
 
         System.out.println(decorator);
@@ -44,34 +46,58 @@ public class UiElement {
         // ID, type, title, author, free trial period
         // use seperator char between each column
         Formatter audioBookFormatter = new Formatter();
-        audioBookFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s", "ID", ' ', "TYPE", ' ', "TITLE", ' ', "AUTHOR",' ', "FREE TRIAL PERIOD");
+        audioBookFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s", "ID", columnSeparator, "TYPE", columnSeparator, "TITLE", columnSeparator, "AUTHOR",columnSeparator, "FREE TRIAL PERIOD");
+
+        audioBookFormatter.format("\n");
+        for(int i = 0; i < decorator.length(); i++){
+            audioBookFormatter.format("%c", decoratorChar);
+        }
 
         for(AudioBook book : books){
             audioBookFormatter.format("\n%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s", book.getId(), columnSeparator, "Audio", columnSeparator, book.getTitle(), columnSeparator, book.getAuthor(), columnSeparator, book.getFreeTrialPeriod() + " days");
         }
 
         System.out.println(audioBookFormatter);
+        System.out.println("\n");
     }
 
     public static void printNormalBookTable(List<NormalBook> books){
         // ID, type, title, author, number of hard copies, loan period
         Formatter normalBookFormatter = new Formatter();
-        normalBookFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s %-1c %-20s", "ID", ' ', "TYPE", ' ', "TITLE", ' ', "AUTHOR",' ', "AVAILABLE COPIES", ' ', "LOAN PERIOD");
+        normalBookFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s %-1c %-20s", "ID", columnSeparator, "TYPE", columnSeparator, "TITLE", columnSeparator, "AUTHOR",columnSeparator, "AVAILABLE COPIES", columnSeparator, "LOAN PERIOD");
+
+        // add decorator below header
+        normalBookFormatter.format("\n");
+        for(int i = 0; i < decorator.length(); i++){
+            normalBookFormatter.format("%c", decoratorChar);
+        }
 
         for(NormalBook book : books){
             normalBookFormatter.format("\n%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s %-1c %-20s", book.getId(), columnSeparator, "Normal", columnSeparator, book.getTitle(), columnSeparator, book.getAuthor(), columnSeparator, book.getNumberOfHardCopies(), columnSeparator, book.getLoanPeriod() + " days");
         }
 
         System.out.println(normalBookFormatter);
+        System.out.println("\n");
     }
 
     public static void printLoanRecordTable(List<LoanRecord> loanRecords){
         //ID, book id, username, loan type
         Formatter loanRecordFormatter = new Formatter();
-        loanRecordFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s", "ID", ' ', "BOOK ID", ' ', "USERNAME", ' ', "LOAN TYPE");
+        loanRecordFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s", "ID", columnSeparator, "BOOK ID", columnSeparator, "USERNAME", columnSeparator, "LOAN TYPE");
+
+        loanRecordFormatter.format("\n");
+        for(int i = 0; i < decorator.length(); i++){
+            loanRecordFormatter.format("%c", decoratorChar);
+        }
+
         for(LoanRecord loanRecord : loanRecords){
             loanRecordFormatter.format("\n%-5s %-1c %-10s %-1c %-50s %-1c %-20s", loanRecord.getId(), columnSeparator, loanRecord.getBookId(), columnSeparator, loanRecord.getUserName(), columnSeparator, loanRecord.getLoanType());
         }
         System.out.println(loanRecordFormatter);
+        System.out.println("\n");
+    }
+
+    public static String repeatChar(char c, int count) {
+        return String.valueOf(c).repeat(Math.max(0, count));
     }
 }
