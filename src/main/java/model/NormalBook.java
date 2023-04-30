@@ -26,6 +26,10 @@ public class NormalBook extends AbstractBook {
         this.loanPeriod = loanPeriod;
     }
 
+    public boolean isAvailable() {
+        return numberOfHardCopies > 0;
+    }
+
     @Override
     public String toString() {
         return "NormalBook{" +

@@ -9,6 +9,6 @@ public class Main {
 
         Library library = new Library();
 
-        library.Start();
+        library.start();
     }
 }

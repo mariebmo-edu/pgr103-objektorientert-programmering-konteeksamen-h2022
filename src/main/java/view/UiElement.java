@@ -11,8 +11,8 @@ public class UiElement {
         System.out.println(decorator);
     }
 
-    public static void formatMenuItem(String menuItem, int num) {
-        System.out.println(num + ". " + menuItem);
+    public static void formatMenuItem(String menuItem, char selectionChar) {
+        System.out.println(selectionChar + ". " + menuItem);
     }
 
     private static String centerTitle(String title, String decorator) {
