@@ -47,7 +47,7 @@ public class UiElement {
         audioBookFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s", "ID", ' ', "TYPE", ' ', "TITLE", ' ', "AUTHOR",' ', "FREE TRIAL PERIOD");
 
         for(AudioBook book : books){
-            audioBookFormatter.format("\n%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s", book.getId(), columnSeparator, "Audio", columnSeparator, book.getTitle(), columnSeparator, book.getAuthor(), columnSeparator, book.getFreeTrialPeriod());
+            audioBookFormatter.format("\n%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s", book.getId(), columnSeparator, "Audio", columnSeparator, book.getTitle(), columnSeparator, book.getAuthor(), columnSeparator, book.getFreeTrialPeriod() + " days");
         }
 
         System.out.println(audioBookFormatter);
@@ -59,7 +59,7 @@ public class UiElement {
         normalBookFormatter.format("%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s %-1c %-20s", "ID", ' ', "TYPE", ' ', "TITLE", ' ', "AUTHOR",' ', "AVAILABLE COPIES", ' ', "LOAN PERIOD");
 
         for(NormalBook book : books){
-            normalBookFormatter.format("\n%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s %-1c %-20s", book.getId(), columnSeparator, "Normal", columnSeparator, book.getTitle(), columnSeparator, book.getAuthor(), columnSeparator, book.getNumberOfHardCopies(), columnSeparator, book.getLoanPeriod());
+            normalBookFormatter.format("\n%-5s %-1c %-10s %-1c %-50s %-1c %-20s %-1c %-20s %-1c %-20s", book.getId(), columnSeparator, "Normal", columnSeparator, book.getTitle(), columnSeparator, book.getAuthor(), columnSeparator, book.getNumberOfHardCopies(), columnSeparator, book.getLoanPeriod() + " days");
         }
 
         System.out.println(normalBookFormatter);
