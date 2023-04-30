@@ -9,6 +9,7 @@ import view.UiElement;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Library {
@@ -103,31 +104,30 @@ public class Library {
     }
 
     public void printAllBooks(){
-        UiElement.formatHeader("All Books");
 
-        for (AbstractBook book : books) {
-            System.out.println(book);
-        }
+        UiElement.formatHeader("All Books");
+        UiElement.printBookTable(books);
     }
 
     public void printAllAudioBooks(){
         UiElement.formatHeader("All Audio Books");
 
-        for (AbstractBook book : books) {
-            if(book instanceof AudioBook){
-                System.out.println(book);
-            }
-        }
+        List<AudioBook> audioBooks =  books.stream().filter(book -> book instanceof AudioBook).map(book -> (AudioBook) book).toList();
+        UiElement.printAudioBookTable(audioBooks);
     }
 
     public void printAllNormalBooks(){
         UiElement.formatHeader("All Normal Books");
 
-        for (AbstractBook book : books) {
-            if((book instanceof NormalBook)){
-                System.out.println(book);
-            }
-        }
+        List<NormalBook> normalBooks = books.stream().filter(book -> book instanceof NormalBook).map(book -> (NormalBook) book).toList();
+        UiElement.printNormalBookTable(normalBooks);
+    }
+
+    public void printLoanReturnMenu(){
+        System.out.print("Loan Type: \r\n");
+        System.out.println("1. Normal");
+        System.out.println("2. Audio");
+        System.out.println("Q. Quit");
     }
 
     public void loanBookMenu(Scanner scanner) throws SQLException {
@@ -136,14 +136,10 @@ public class Library {
         System.out.print("Book ID: ");
         int bookId = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Return Type: \r\n");
-        System.out.println("1. Normal");
-        System.out.println("2. Audio");
-        System.out.println("Q. Quit");
-
         String userInput = "";
 
         while(!userInput.equalsIgnoreCase("Q")){
+            printLoanReturnMenu();
             System.out.print("Choice: ");
             userInput = scanner.nextLine();
 
@@ -154,9 +150,8 @@ public class Library {
                     System.out.println("Returning to main menu");
                     mainMenu(scanner);
                 }
-                default -> {
-                    System.out.println("Invalid choice");
-                }
+                default -> System.out.println("Invalid choice");
+
             }
         }
     }
@@ -199,14 +194,10 @@ public class Library {
         System.out.print("Book ID: ");
         int bookId = Integer.parseInt(scanner.nextLine());
 
-        System.out.print("Loan Type: \r\n");
-        System.out.println("1. Normal");
-        System.out.println("2. Audio");
-        System.out.println("Q. Quit");
-
         String userInput = "";
 
         while(!userInput.equalsIgnoreCase("Q")){
+            printLoanReturnMenu();
             System.out.print("Choice: ");
             userInput = scanner.nextLine();
 
@@ -217,9 +208,7 @@ public class Library {
                     System.out.println("Returning to main menu");
                     mainMenu(scanner);
                 }
-                default -> {
-                    System.out.println("Invalid choice");
-                }
+                default -> System.out.println("Invalid choice");
             }
         }
     }
@@ -245,25 +234,18 @@ public class Library {
         System.out.printf("Book %s returned by %s%n", book.getTitle(), user);
     }
 
-    public void printLoanRecords() throws SQLException {
+    public void printLoanRecords() {
         UiElement.formatHeader("Loan Records");
 
         var loanRecords = loanRecordRepo.RetrieveAll();
 
-        for (LoanRecord loanRecord : loanRecords) {
-            System.out.println(loanRecord);
-        }
+        UiElement.printLoanRecordTable(loanRecords);
     }
 
-    public void printUserLoanRecords() throws SQLException {
-        UiElement.formatHeader("Loan Records");
+    public void printUserLoanRecords(){
+        UiElement.formatHeader("Loan Records - " + user.toUpperCase());
 
-        var loanRecords = loanRecordRepo.RetrieveAll();
-
-        for (LoanRecord loanRecord : loanRecords) {
-            if (loanRecord.getUserName().equals(user)) {
-                System.out.println(loanRecord);
-            }
-        }
+        var loanRecords = loanRecordRepo.RetrieveAll().stream().filter(loanRecord -> loanRecord.getUserName().equals(user)).toList();
+        UiElement.printLoanRecordTable(loanRecords);
     }
 }

@@ -19,11 +19,6 @@ public class AudioBook extends AbstractBook {
 
     @Override
     public String toString() {
-        return "AudioBook{" +
-                "freeTrialPeriod=" + freeTrialPeriod +
-                ", id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                '}';
+        return "(Audio Book) " + id + " - " + title + " by " + author + " (Free trial period: " + freeTrialPeriod + " days)";
     }
 }

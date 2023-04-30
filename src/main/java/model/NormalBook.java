@@ -32,12 +32,6 @@ public class NormalBook extends AbstractBook {
 
     @Override
     public String toString() {
-        return "NormalBook{" +
-                "numberOfHardCopies=" + numberOfHardCopies +
-                ", loanPeriod=" + loanPeriod +
-                ", id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                '}';
+        return "(Book) " + id + " - " + title + " by " + author + " (Number of hard copies: " + numberOfHardCopies + ", Loan period: " + loanPeriod + " days)";
     }
 }
