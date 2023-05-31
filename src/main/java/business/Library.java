@@ -26,7 +26,7 @@ public class Library {
         normalBookRepo = new NormalBookRepo();
         loanRecordRepo = new LoanRecordRepo();
 
-        getAllBooks();
+        loadAllBooks();
     }
 
     public void start() throws SQLException {
@@ -95,7 +95,7 @@ public class Library {
         }
     }
 
-    public void getAllBooks(){
+    public void loadAllBooks(){
         var audioBooks = audioBookRepo.RetrieveAll();
         var normalBooks = normalBookRepo.RetrieveAll();
 
